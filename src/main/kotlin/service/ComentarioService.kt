@@ -11,7 +11,6 @@ class ComentarioService(private val comentarioRepository: ComentarioRepository,p
 
     fun insertarComentario(usuario: String,noticia: Noticia) {
 
-        //controlar la existencia del usuario y la noticia en una capa superior
 
         consola.mostrarTexto("Escribe el mensaje de el comentario: ")
         val texto = consola.pedirTexto()
@@ -21,5 +20,8 @@ class ComentarioService(private val comentarioRepository: ComentarioRepository,p
         comentarioRepository.insertarComentario(comentario)
     }
 
+    fun getComentariosPorNoticia(noticia: Noticia): List<Comentario> {
+        return comentarioRepository.obtenerComentariosPorNoticia(noticia)
+    }
 
 }

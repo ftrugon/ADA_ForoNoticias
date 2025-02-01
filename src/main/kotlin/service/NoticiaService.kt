@@ -43,7 +43,19 @@ class NoticiaService(private val noticiaRepository: NoticiaRepository, private v
     }
 
     fun getNoticiaPorNombre(noticiaName: String): List<Noticia> {
-        return noticiaRepository.obtenerNoticiaPorNombre(noticiaName)
+        return noticiaRepository.obtenerNoticiaPorTitulo(noticiaName)
+    }
+
+    fun getNoticiasPorNick(nickName: String): List<Noticia> {
+        return noticiaRepository.obtenerNoticiasPorNick(nickName)
+    }
+
+    fun getNoticiasPorTag(tagName: String): List<Noticia> {
+        return noticiaRepository.obtenerNoticiasPorTag(tagName)
+    }
+
+    fun getUltimasNoticias(): List<Noticia> {
+        return noticiaRepository.getUltimasNoticias()
     }
 
 }

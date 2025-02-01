@@ -48,17 +48,7 @@ class Program(
         }
     }
 
-    private fun insertarComentario(){
-        //comprueba la existencia del usuario y pega unos errores si no existe o esta banned
-
-        val existeUsuario = comprobarExistenciaUsuario()
-        if (existeUsuario == null){
-            throw Exception("El usuario que intenta crear la noticia no existe")
-        } else if (existeUsuario.baneado || !existeUsuario.activo) {
-            throw Exception("El usuario que intenta crear la noticia esta baneado o no esta activo")
-        }
-
-        // comprueba la noticia
+    private fun elegirNoticia():Noticia{
         console.mostrarTexto("Dime el titulo de la noticia:")
         val nombreNoticia = console.pedirTexto()
         val noticiasConElNombre = ns.getNoticiaPorNombre(nombreNoticia)
@@ -67,9 +57,9 @@ class Program(
         if (noticiasConElNombre.isEmpty()){
             throw Exception("No se encontraron noticias con ese nombre")
         }else{
-            console.mostrarTexto("Elige una noticia: ")
+            console.mostrarTexto("Elige una noticia: ",true)
             noticiasConElNombre.forEachIndexed { i, noticia ->
-                console.mostrarTexto("${i + 1} --> ${noticia.titulo} : ${noticia.autor} : ${noticia.fechaPublicacion}")
+                console.mostrarTexto("${i + 1} --> ${noticia.titulo} : ${noticia.autor} : ${noticia.fechaPublicacion}",true)
             }
         }
 
@@ -80,8 +70,40 @@ class Program(
             opcion = console.pedirTexto().toIntOrNull() ?: 0
 
         }while (opcion !in 1..noticiasConElNombre.size)
+        return noticiasConElNombre[opcion - 1]
+    }
 
-        cs.insertarComentario(existeUsuario.nick,noticiasConElNombre[opcion-1])
+    private fun insertarComentario(){
+        //comprueba la existencia del usuario y pega unos errores si no existe o esta banned
+
+        val existeUsuario = comprobarExistenciaUsuario()
+        if (existeUsuario == null){
+            throw Exception("El usuario que intenta crear la noticia no existe")
+        } else if (existeUsuario.baneado || !existeUsuario.activo) {
+            throw Exception("El usuario que intenta crear la noticia esta baneado o no esta activo")
+        }
+
+        cs.insertarComentario(existeUsuario.nick,elegirNoticia())
+    }
+
+    private fun verNoticiasUsuario(){
+
+        val autor = comprobarExistenciaUsuario()
+        if (autor == null){
+            throw Exception("El usuario que intenta crear la noticia no existe")
+        } else if (autor.baneado || !autor.activo) {
+            throw Exception("El usuario que intenta crear la noticia esta baneado o no esta activo")
+        }
+
+        val noticias = ns.getNoticiasPorNick(autor.nick)
+
+        if (noticias.isEmpty()){
+            console.mostrarTexto("El usuario no tiene noticias")
+        }else{
+            noticias.forEach {
+                println(it)
+            }
+        }
     }
 
     fun startProgram(){
@@ -102,22 +124,44 @@ class Program(
                         insertarComentario()
                     }
                     4->{
-
+                        verNoticiasUsuario()
                     }
                     5->{
 
+                        val comentarios = cs.getComentariosPorNoticia(elegirNoticia())
+                        comentarios.forEachIndexed { i, noticia ->
+                            println("${i + 1} -> ${noticia.usuario}: ${noticia.texto}")
+                        }
                     }
                     6->{
+                        console.mostrarTexto("Dime el tag de la noticia que quieres buscar: ")
+                        val noticias = ns.getNoticiasPorTag(console.pedirTexto())
+
+                        if (noticias.isEmpty()){
+                            console.mostrarTexto("No se ha encontrado ninfuna noticia con ese tag")
+                        }else{
+                            noticias.forEach {
+                                println(it)
+                            }
+                        }
 
                     }
                     7->{
+                        val noticias = ns.getUltimasNoticias()
 
+                        if (noticias.isEmpty()){
+                            console.mostrarTexto("No se han encotrado noticias")
+                        }else{
+                            noticias.forEach {
+                                println(it)
+                            }
+                        }
                     }
                     8->{
-
+                        console.mostrarTexto("Saliendo del programa")
                     }
                     else ->{
-
+                        console.mostrarTexto("La opción introducida no es valida",true)
                     }
                 }
             }catch (e:Exception){
@@ -126,7 +170,7 @@ class Program(
 
 
 
-        }while (op != 6)
+        }while (op != 8)
     }
 
 }
