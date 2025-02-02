@@ -10,7 +10,7 @@ class Program(
     private val us:UsuarioService,
     private val cs:ComentarioService,
     private val ns:NoticiaService,
-    private val console:consolaManager
+    private val console:ConsolaManager
 ) {
 
 

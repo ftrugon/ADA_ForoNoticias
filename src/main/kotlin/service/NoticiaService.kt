@@ -1,11 +1,11 @@
 package org.example.service
 
-import org.example.consolaManager
+import org.example.ConsolaManager
 import org.example.model.Noticia
 import org.example.repository.NoticiaRepository
 import java.util.*
 
-class NoticiaService(private val noticiaRepository: NoticiaRepository, private val consola: consolaManager) {
+class NoticiaService(private val noticiaRepository: NoticiaRepository, private val consola: ConsolaManager) {
 
 
     fun insertarNoticia(autor:String){

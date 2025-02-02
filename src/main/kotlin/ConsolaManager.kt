@@ -1,6 +1,6 @@
 package org.example
 
-class consolaManager() {
+class ConsolaManager() {
 
     fun mostrarTexto(message: String,nextLine:Boolean = false){
         if (nextLine){

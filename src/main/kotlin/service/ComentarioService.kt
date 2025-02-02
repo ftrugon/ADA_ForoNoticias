@@ -1,13 +1,12 @@
 package org.example.service
 
-import org.example.consolaManager
+import org.example.ConsolaManager
 import org.example.model.Comentario
 import org.example.model.Noticia
-import org.example.model.Usuario
 import org.example.repository.ComentarioRepository
 import java.util.Date
 
-class ComentarioService(private val comentarioRepository: ComentarioRepository,private val consola: consolaManager) {
+class ComentarioService(private val comentarioRepository: ComentarioRepository,private val consola: ConsolaManager) {
 
     fun insertarComentario(usuario: String,noticia: Noticia) {
 

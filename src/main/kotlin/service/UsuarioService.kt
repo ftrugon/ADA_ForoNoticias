@@ -1,11 +1,11 @@
 package org.example.service
 
-import org.example.consolaManager
+import org.example.ConsolaManager
 import org.example.model.Direccion
 import org.example.model.Usuario
 import org.example.repository.UsuarioRepository
 
-class UsuarioService(private val usuarioRepository: UsuarioRepository, private val consola: consolaManager) {
+class UsuarioService(private val usuarioRepository: UsuarioRepository, private val consola: ConsolaManager) {
 
     fun selectByNick(nick:String):Usuario?{
         return usuarioRepository.selectbyNick(nick)

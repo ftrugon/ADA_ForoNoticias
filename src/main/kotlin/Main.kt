@@ -12,7 +12,7 @@ import org.example.service.UsuarioService
 
 fun main() {
 
-    val consola = consolaManager()
+    val consola = ConsolaManager()
 
 
     try {
