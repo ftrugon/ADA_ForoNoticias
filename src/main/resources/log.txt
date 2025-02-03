@@ -1,0 +1,15 @@
+ Insertar noticia - 02-03 16:33:06 - Noticia(titulo=hola que tal, cuerpo=sadsa, fechaPublicacion=Mon Feb 03 16:33:04 CET 2025, autor=francesc, tags=[])
+ERROR Insertar noticia - 02-03 16:32:53 - El usuario que intenta crear la noticia no existe
+ERROR Insertar noticia - 02-03 16:33:13 - El usuario que intenta crear la noticia esta baneado o no esta activo
+ Insertar usuario - 02-03 16:34:17 - Usuario(_id=sadasdasdasda@sddasdasdsa.com, nombre=fran, nick=asadsadsadadsadssad, baneado=false, activo=true, direccion=Direccion(ciudad=, cp=, calle=, num=), telefonos=[])
+ERROR Insertar usuario - 02-03 16:34:26 - El email a insertar ya existe
+ERROR Insertar usuario - 02-03 16:34:37 - El nick a insertar ya existe, debe ser unico
+ Insertar comentario - 02-03 16:35:16 - Comentario(usuario=francesc, noticia=Noticia(titulo=paco, cuerpo=paco, fechaPublicacion=Thu Jan 30 16:39:50 CET 2025, autor=paco, tags=[paco, paco, paco, paco, apa]), texto=paco es tonto, fechaEscritura=Mon Feb 03 16:35:15 CET 2025)
+ERROR Insertar comentario - 02-03 16:35:20 - El usuario que intenta crear el comentario esta baneado o no esta activo
+ERROR Elegir noticia - 02-03 16:36:18 - No se encontraron noticias con ese titulo
+ Listar comentarios - 02-03 16:37:00 - Se estan listando los comentarios de la noticia
+ERROR Elegir noticia - 02-03 16:37:08 - No se encontraron noticias con ese titulo
+ Listar comentarios - 02-03 16:37:15 - Se estan listando los comentarios de la noticia
+ERROR Buscar por tag - 02-03 16:37:22 - No se ha encontrado ninguna noticia con ese tag
+ Buscar por tag - 02-03 16:37:26 - Se estan listando las noticias con el tag
+ Ultimas noticias - 02-03 16:37:34 - Listando las ultimas noticias

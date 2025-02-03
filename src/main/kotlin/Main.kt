@@ -41,5 +41,6 @@ fun main() {
         consola.mostrarTexto("Algo salio mal: ${ex.message}",true)
         DataBase.closeConnection()
     }
+    DataBase.closeConnection()
 
 }

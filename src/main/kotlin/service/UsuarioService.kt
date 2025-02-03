@@ -1,6 +1,7 @@
 package org.example.service
 
 import org.example.ConsolaManager
+import org.example.Logs
 import org.example.model.Direccion
 import org.example.model.Usuario
 import org.example.repository.UsuarioRepository
@@ -35,6 +36,7 @@ class UsuarioService(private val usuarioRepository: UsuarioRepository, private v
         val email = consola.pedirTexto()
 
         if (allUsers.any { it._id == email }) {
+            Logs.escribir(listOf("ERROR","Insertar usuario","El email a insertar ya existe"))
             throw Exception("El email a insertar ya existe")
         }
 
@@ -42,6 +44,7 @@ class UsuarioService(private val usuarioRepository: UsuarioRepository, private v
         val nick = consola.pedirTexto()
 
         if (allUsers.any { it.nick == nick }) {
+            Logs.escribir(listOf("ERROR","Insertar usuario","El nick a insertar ya existe, debe ser unico"))
             throw Exception("El nick a insertar ya existe, debe ser unico")
         }
 
@@ -67,6 +70,7 @@ class UsuarioService(private val usuarioRepository: UsuarioRepository, private v
         val user = Usuario(email,nombre,nick,false,true,dir,nums)
 
         usuarioRepository.insertarUsuario(user)
+        Logs.escribir(listOf("","Insertar usuario",user.toString()))
 
     }
 

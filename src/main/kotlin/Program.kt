@@ -29,7 +29,7 @@ class Program(
     }
 
     private fun comprobarExistenciaUsuario(): Usuario? {
-        console.mostrarTexto("Introduce el nick del usuario que va a publicar la noticia:",false)
+        console.mostrarTexto("Introduce el nick del usuario:",false)
         val nickPublicador = console.pedirTexto()
         return us.selectByNick(nickPublicador)
 
@@ -40,11 +40,18 @@ class Program(
         val existe = comprobarExistenciaUsuario()
 
         if (existe == null){
+
+            Logs.escribir(listOf("ERROR","Insertar noticia","El usuario que intenta crear la noticia no existe"))
             throw Exception("El usuario que intenta crear la noticia no existe")
+
         } else if (existe.baneado || !existe.activo) {
+
+            Logs.escribir(listOf("ERROR","Insertar noticia","El usuario que intenta crear la noticia esta baneado o no esta activo"))
             throw Exception("El usuario que intenta crear la noticia esta baneado o no esta activo")
+
         }else{
             ns.insertarNoticia(existe.nick)
+
         }
     }
 
@@ -55,7 +62,8 @@ class Program(
 
 
         if (noticiasConElNombre.isEmpty()){
-            throw Exception("No se encontraron noticias con ese nombre")
+            Logs.escribir(listOf("ERROR","Elegir noticia","No se encontraron noticias con ese titulo"))
+            throw Exception("No se encontraron noticias con ese titulo")
         }else{
             console.mostrarTexto("Elige una noticia: ",true)
             noticiasConElNombre.forEachIndexed { i, noticia ->
@@ -78,9 +86,11 @@ class Program(
 
         val existeUsuario = comprobarExistenciaUsuario()
         if (existeUsuario == null){
-            throw Exception("El usuario que intenta crear la noticia no existe")
+            Logs.escribir(listOf("ERROR","Insertar comentario","El usuario que intenta crear el comentario no existe"))
+            throw Exception("El usuario que intenta crear el comentario no existe")
         } else if (existeUsuario.baneado || !existeUsuario.activo) {
-            throw Exception("El usuario que intenta crear la noticia esta baneado o no esta activo")
+            Logs.escribir(listOf("ERROR","Insertar comentario","El usuario que intenta crear el comentario esta baneado o no esta activo"))
+            throw Exception("El usuario que intenta crear el comentario esta baneado o no esta activo")
         }
 
         cs.insertarComentario(existeUsuario.nick,elegirNoticia())
@@ -90,9 +100,9 @@ class Program(
 
         val autor = comprobarExistenciaUsuario()
         if (autor == null){
-            throw Exception("El usuario que intenta crear la noticia no existe")
+            throw Exception("El usuario que se ha introducido no existe")
         } else if (autor.baneado || !autor.activo) {
-            throw Exception("El usuario que intenta crear la noticia esta baneado o no esta activo")
+            throw Exception("El usuario que se ha introducido esta baneado o no esta activo")
         }
 
         val noticias = ns.getNoticiasPorNick(autor.nick)
@@ -129,6 +139,9 @@ class Program(
                     5->{
 
                         val comentarios = cs.getComentariosPorNoticia(elegirNoticia())
+
+                        Logs.escribir(listOf("","Listar comentarios","Se estan listando los comentarios de la noticia"))
+
                         comentarios.forEachIndexed { i, noticia ->
                             println("${i + 1} -> ${noticia.usuario}: ${noticia.texto}")
                         }
@@ -138,8 +151,10 @@ class Program(
                         val noticias = ns.getNoticiasPorTag(console.pedirTexto())
 
                         if (noticias.isEmpty()){
-                            console.mostrarTexto("No se ha encontrado ninfuna noticia con ese tag")
+                            Logs.escribir(listOf("ERROR","Buscar por tag","No se ha encontrado ninguna noticia con ese tag"))
+                            console.mostrarTexto("No se ha encontrado ninguna noticia con ese tag")
                         }else{
+                            Logs.escribir(listOf("","Buscar por tag","Se estan listando las noticias con el tag"))
                             noticias.forEach {
                                 println(it)
                             }
@@ -150,8 +165,10 @@ class Program(
                         val noticias = ns.getUltimasNoticias()
 
                         if (noticias.isEmpty()){
+                            Logs.escribir(listOf("ERROR","Ultimas noticias","No se ha encontrado ninguna noticia"))
                             console.mostrarTexto("No se han encotrado noticias")
                         }else{
+                            Logs.escribir(listOf("","Ultimas noticias","Listando las ultimas noticias"))
                             noticias.forEach {
                                 println(it)
                             }

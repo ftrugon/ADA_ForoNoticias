@@ -1,6 +1,7 @@
 package org.example.service
 
 import org.example.ConsolaManager
+import org.example.Logs
 import org.example.model.Noticia
 import org.example.repository.NoticiaRepository
 import java.util.*
@@ -40,6 +41,8 @@ class NoticiaService(private val noticiaRepository: NoticiaRepository, private v
         val noticia = Noticia(titulo,cuerpo,fecha,autor,tags)
 
         noticiaRepository.insertarNoticia(noticia)
+        Logs.escribir(listOf("","Insertar noticia",noticia.toString()))
+
     }
 
     fun getNoticiaPorNombre(noticiaName: String): List<Noticia> {
